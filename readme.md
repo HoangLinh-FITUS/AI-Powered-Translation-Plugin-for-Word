@@ -28,6 +28,7 @@ Một add-on được phát triển bằng Google Apps Script, cho phép dịch 
 - Chọn dịch từ tiếng anh sang tiếng việt.
 - Cài đặt `temperature = 0.5`.
 - Kiểu dịch thuật là `Academi`.
+- Translate Assistance: `Select Text`.
 - Sau khi bấm `translate`, nội dung sau khi dịch sẽ được hiển thị bên trong thanh sidebar.
 
 <div align='center'>
@@ -35,6 +36,11 @@ Một add-on được phát triển bằng Google Apps Script, cho phép dịch 
 </div>
 
 ### Translate The Entire Document
+- Chọn 1 đoạn trong tài liệu.
+- Chọn dịch từ tiếng anh sang tiếng việt.
+- Cài đặt `temperature = 0.5`.
+- Kiểu dịch thuật là `Academi`.
+- Translate Assistance: `Entire`.
 - Chọn dịch toàn bộ tài liệu, nội dung được dịch sẽ ghi đè lên nội dung ban đầu của tài liệu.
 <div align='center'>
 <img src="https://i.imgur.com/Bf1T4ea.png" alt='select-entire' width='500'>
