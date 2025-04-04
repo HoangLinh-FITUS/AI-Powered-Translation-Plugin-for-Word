@@ -19,7 +19,7 @@ Một add-on được phát triển bằng Google Apps Script, cho phép dịch 
 2. Tạo 2 file gs và html tương ứng.
 3. Tạo `GEMINI_API_KEY` và thay thế trong file.gs
 4. Chạy file gs với `function onOpen()`.
-5. Quay trở lại docs mở Translate $\rightarrow$ Translate with ai. 
+5. Quay trở lại docs mở Translate $\rightarrow$ Translate With AI. 
 
 
 ## 💡 Demo
