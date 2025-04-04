@@ -36,7 +36,6 @@ Một add-on được phát triển bằng Google Apps Script, cho phép dịch 
 </div>
 
 ### Translate The Entire Document
-- Chọn 1 đoạn trong tài liệu.
 - Chọn dịch từ tiếng anh sang tiếng việt.
 - Cài đặt `temperature = 0.5`.
 - Kiểu dịch thuật là `Academi`.
