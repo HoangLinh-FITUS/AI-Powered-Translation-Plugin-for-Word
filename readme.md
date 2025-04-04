@@ -32,7 +32,7 @@ Một add-on được phát triển bằng Google Apps Script, cho phép dịch 
 - Sau khi bấm `translate`, nội dung sau khi dịch sẽ được hiển thị bên trong thanh sidebar.
 
 <div align='center'>
-<img src="https://i.imgur.com/so0uJ4a.png" alt='select-text' width='700'>
+<img src="https://i.imgur.com/so0uJ4a.png" alt='select-text'>
 </div>
 
 ### Translate The Entire Document
@@ -43,5 +43,5 @@ Một add-on được phát triển bằng Google Apps Script, cho phép dịch 
 - Translate Assistance: `Entire`.
 - Sau khi bấm `translate`, nội dung được dịch sẽ ghi đè lên nội dung ban đầu của tài liệu.
 <div align='center'>
-<img src="https://i.imgur.com/Bf1T4ea.png" alt='select-entire' width='700'>
+<img src="https://i.imgur.com/Bf1T4ea.png" alt='select-entire'>
 </div>
