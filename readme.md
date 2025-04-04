@@ -41,7 +41,7 @@ Một add-on được phát triển bằng Google Apps Script, cho phép dịch 
 - Cài đặt `temperature = 0.5`.
 - Kiểu dịch thuật là `Academi`.
 - Translate Assistance: `Entire`.
-- Chọn dịch toàn bộ tài liệu, nội dung được dịch sẽ ghi đè lên nội dung ban đầu của tài liệu.
+- Sau khi bấm `translate`, nội dung được dịch sẽ ghi đè lên nội dung ban đầu của tài liệu.
 <div align='center'>
 <img src="https://i.imgur.com/Bf1T4ea.png" alt='select-entire' width='500'>
 </div>
