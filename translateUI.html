@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Translate AI</title>
+    <!-- <link rel="stylesheet" href="style.css"> -->
+    <style>
+      * {
+          margin: 0;
+          padding: 0;
+          font-family: Arial, Helvetica, sans-serif;
+      }
+
+      body {
+          background-color: #f4f4f4;
+      }
+
+      h1 {
+          text-align: center;
+      }
+      .container {
+          font-family: Arial, Helvetica, sans-serif;
+          margin: 20px;
+          padding: 20px;
+          background: white;
+          border-radius: 8px;
+      }
+
+      label {
+          font-weight: bold;
+          margin-top: 10px;
+          display: block;
+      }
+
+      select, textarea, input {
+          width: 100%;
+          padding: 8px;
+          margin-top: 5px;
+          border: 1px solid #ccc;
+          border-radius: 5px;
+          font-size: 14px;
+      }
+
+      button {
+          margin-top: 15px;
+          padding: 10px;
+          width: 100%;
+          background-color: #007bff;
+          color: white;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+          font-size: 16px;
+      }
+
+      button:hover {
+          background-color: #0056b3
+      }
+
+
+      #output-text {
+          margin-top: 10px;
+          font-size: 16px;
+          background: #e9ecef;
+          padding: 10px;
+          min-height: 50px;
+          border-radius: 5px;
+          width: 100%;
+      }
+
+    </style>
+</head>
+
+<body>
+    <div class="container">
+
+        <h1>Translate AI</h1>
+
+        <div>
+            <label for="source-language">Source Language:</label>
+            <select id="source-language">
+                <option value="vietname">Vietname</option>
+                <option value="english">English</option>
+                <option value="french">French</option>
+            </select>
+        </div>
+
+        <div>
+            <label for="target-language">Target Language:</label>
+            <select id="target-language">
+                <option value="english">English</option>
+                <option value="vietname">Vietname</option>
+                <option value="french">French</option>
+            </select>
+        </div>
+
+        <div>
+            <label for="model-ai">Model:</label>
+            <select id="model-ai">
+                <option value="Gemini">Gemini</option>
+                <!-- <option value="Chatgpt">OpenAI</option>
+                <option value="LLama">LLama2</option> -->
+            </select>
+        </div>
+
+        <div>
+            <label for="Temperature">Temperature:</label>
+            <input type="range" id="temperature" min="0" max="1" step="0.1" value="0.5">
+            <span id="temp-value">0.5</span>
+        </div>
+
+        <div>
+            <label for="translate-style">Translation Style:</label>
+            <select id="translate-style">
+                <option value="academi">Academi</option>
+                <option value="professional">Professional</option>
+                <option value="casual">Casual</option>
+            </select>
+        </div>
+
+        <div>
+            <label for="translation-assistance">Translation Assistance:</label>
+            <select id="translation-assistance">
+                <option value="entire">Entire</option>
+                <option value="select-text">Select Text</option>
+            </select>
+        </div>
+        
+        <button onclick="translateAssistance()">Translate</button>
+
+        <div>
+            <label for="input-text">Text:</label>
+            <textarea id="input-text"></textarea>
+        </div>
+
+        <div>
+            <label for="output-text">Translation Ouput</label>
+            <p id="output-text"></p>
+        </div>
+    </div>
+
+    </div>
+
+    <script>
+      function translateAssistance() {
+          let assistance = document.getElementById('translation-assistance').value;
+          if (assistance == 'entire') {
+            translateEntire();
+            return;
+          }
+          translateText();
+      }
+
+      function translateEntire() {
+          let source_language = document.getElementById('source-language').value;
+          let target_language = document.getElementById('target-language').value;
+          let model = document.getElementById('model-ai').value;
+          let temperature = parseFloat(document.getElementById('temperature').value);
+          let style = document.getElementById("translate-style").value;
+          let input_text = document.getElementById('input-text').value;
+
+          document.getElementById('output-text').textContent = 'Translating...';
+
+          google.script.run.withSuccessHandler(function(text) {
+              input_text = text;
+              google.script.run.setBodyDocument(model, temperature, style, 
+                source_language, target_language,
+                input_text
+              );
+
+              document.getElementById('output-text').textContent = '';
+          })
+          .getBodyDocument();
+      }
+
+      function translateText() {
+          
+          let source_language = document.getElementById('source-language').value;
+          let target_language = document.getElementById('target-language').value;
+          let model = document.getElementById('model-ai').value;
+          let temperature = parseFloat(document.getElementById('temperature').value);
+          let style = document.getElementById("translate-style").value;
+          let input_text = document.getElementById('input-text').value;
+
+          google.script.run.withSuccessHandler(function(text) {
+              if (text !== null) {
+                document.getElementById('input-text').value = text; 
+                input_text = text;
+              }
+
+              document.getElementById('output-text').textContent = 'Translating...';
+
+              // context of document
+              let context = "";
+              google.script.run.withSuccessHandler(function(text) {
+                context = text;
+                document.getElementById('output-text').textContent = text;
+              })
+              .withFailureHandler(function(error) {
+                document.getElementById('output-text').textContent = 'Error: ' + error.message;
+              })
+              .getBodyDocument();
+          
+              // select text
+              google.script.run.withSuccessHandler(function(textTranslated) { 
+                document.getElementById('output-text').textContent = textTranslated;
+              })
+              .withFailureHandler(function(error) { 
+                document.getElementById('output-text').textContent = 'Error: ' + error.message;
+              })
+              .request_model(
+                  model, temperature, style, 
+                  source_language, target_language,
+                  input_text, context
+              );
+          })
+          .getSelectionDocument();
+          
+      }
+
+      document.getElementById('temperature').addEventListener('input', function() {
+        document.getElementById('temp-value').textContent = this.value;
+      });
+
+    </script>
+</body>
+
+</html>
